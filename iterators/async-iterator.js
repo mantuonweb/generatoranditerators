@@ -1,11 +1,13 @@
 let range = {
   from: 1,
   to: 5,
-  [Symbol.asyncIterator]() { // (1)
+  [Symbol.asyncIterator]() {
+    // (1)
     return {
       current: this.from,
       last: this.to,
-      async next() { // (2)
+      async next() {
+        // (2)
         // note: we can use "await" inside the async next:
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
         if (this.current <= this.last) {
@@ -17,9 +19,10 @@ let range = {
     };
   }
 };
-console.log('Async Iterables');
+console.log("Async Iterables");
 (async () => {
-  for await (let value of range) { // (4)
+  for await (let value of range) {
+    // (4)
     console.log(value); // 1,2,3,4,5
   }
-})()
+})();
